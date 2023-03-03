@@ -11,7 +11,7 @@ export default function RecipeList({ recipes }) {
         <h3>{recipe.title}</h3>
         <p>It takes {recipe.cookingTime}</p>
         <p>Ingredients: {recipe.ingredients}</p>
-        <div>instructions: {recipe.method.substring(0,70)}...</div>
+        <div>instructions: {recipe.method.join().substring(0,70)}...</div>
         <Link to={`/recipes/${recipe.id}`}>Cook this</Link>
         </div>
       ))}
