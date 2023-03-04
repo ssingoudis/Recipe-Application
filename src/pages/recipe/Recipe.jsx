@@ -27,9 +27,7 @@ export default function Receipe() {
               ))}
             </ul>
           </p>
-          <p className='method'>{recipe.method.map((step) => (
-            <li key={step}>{step}</li>
-          ))}</p>
+          <p className='method'>{recipe.method}</p>
         </>
       )}
     </div>

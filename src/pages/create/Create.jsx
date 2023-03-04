@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useFetch } from '../../hooks/useFetch'
 
 // styles
 import './Create.css'
@@ -11,16 +13,26 @@ export default function Create() {
   const [newIngredient, setNewIngredient] = useState('')
   const [ingredients, setIngredients] = useState([])
   const ingredientInput = useRef(null)
+  const history = useHistory()
+
+  const { data, error, postData } = useFetch('http://localhost:3000/recipes', "POST")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(title, method, cookingTime, ingredients)
+    postData({ title, ingredients, method, cookingTime: cookingTime + ' minutes' })
 
-    setTitle('')
-    setMethod('')
-    setCookingTime('')
-    setIngredients([])
+    // setTitle('')
+    // setMethod('')
+    // setCookingTime('')
+    // setIngredients([])
   }
+
+  useEffect(() => {
+    if (data) {
+      history.push('/')
+    }
+  }, [data])
+
 
   const handleAdd = (e) => {
     e.preventDefault()
@@ -67,8 +79,7 @@ export default function Create() {
 
         <label>
           <span>Desciption of how-to cook it:</span>
-          <input 
-            type="text"
+          <textarea
             onChange={(e) => {setMethod(e.target.value)}}
             value={method}
             required
